@@ -49,3 +49,21 @@ a {
   color: white;
   font-weight: bold;
 }
+
+.box-sprites {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.sprite {
+  width: 8.8755rem;
+}
+
+@media screen and (max-width: 768px) {
+  .box-sprites {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 0.5rem;
+  }
+}
