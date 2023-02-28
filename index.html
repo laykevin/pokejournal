@@ -16,7 +16,7 @@
   <header>
     <div class="container">
       <div class="row head">
-        NavBar
+        <div class="white-text">PokeNav</div>
         <a href="#">Bill's PC</a>
         <a href="#">My Party</a>
       </div>
@@ -28,7 +28,7 @@
     </div>
     <div class="text-center">
       <form id="poke-name-form" action="">
-        <input id="poke-name" class="add" type="text" placeholder="Add Pokemon">
+        <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')">
         <input class="add-button" type="submit" value="Deposit">
       </form>
     </div>
