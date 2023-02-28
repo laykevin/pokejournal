@@ -1,0 +1,51 @@
+body {
+  background: url("https://images5.alphacoders.com/608/608323.png") center fixed;
+  background-size: cover;
+  font-family: Roboto, sans-serif;
+}
+
+header {
+  background-color: red;
+}
+
+.head {
+  display: flex;
+  padding: 1rem 0;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+#poke-name-form {
+  display: flex;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  padding: 0 1rem;
+}
+
+.text-center {
+  display: flex;
+  justify-content: center;
+}
+
+.add-button {
+  background-color: red;
+  color: white;
+  border-style: none;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin: 0;
+}
+
+.add {
+  padding: 0.5rem;
+  border-style: none;
+  margin: 0;
+}
+
+.white-text {
+  color: white;
+  font-weight: bold;
+}
