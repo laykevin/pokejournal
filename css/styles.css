@@ -8,6 +8,10 @@ header {
   background-color: red;
 }
 
+h1 {
+  margin: 1rem 0;
+}
+
 .head {
   display: flex;
   padding: 1rem 0;
@@ -56,7 +60,13 @@ a {
 }
 
 .sprite {
-  width: 8.8755rem;
+  width: 8.8756rem;
+  cursor: pointer;
+}
+
+.sprite:hover {
+  transform: scale(1.1);
+  transition: transform 0.25s ease-in;
 }
 
 @media screen and (max-width: 768px) {
@@ -66,4 +76,97 @@ a {
     justify-content: space-between;
     margin: 0 0.5rem;
   }
+}
+
+.official-art {
+  width: 100%;
+}
+
+.model-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: 0.15rem;
+
+  /* margin: 0 2rem; */
+}
+
+.text-align {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* text-align: center; */
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 80%);
+}
+
+.modal-container {
+  max-width: 775px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  background-color: white;
+}
+
+@media screen and (max-width: 768px) {
+  .modal-container {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    background-color: white;
+  }
+}
+
+.close-button {
+  border-radius: 75%;
+}
+
+.fa-circle-xmark,
+.fa-sparkles {
+  color: red;
+  cursor: pointer;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+
+#editing-form > input,
+select,
+textarea {
+  margin-bottom: 1rem;
+  resize: none;
+  width: 100%;
+}
+
+#editing-form > input,
+select {
+  padding: 0.5rem;
+}
+
+.release,
+.withdraw,
+.save-button {
+  background-color: red;
+  padding: 0.75rem 0.5rem;
+  border-style: none;
+  color: white;
+  border-radius: 3px;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.withdraw {
+  background-color: blue;
+}
+
+.save-button {
+  background-color: teal;
 }
