@@ -62,11 +62,11 @@ a {
 .sprite {
   width: 8.8756rem;
   cursor: pointer;
+  transition: transform 0.25s ease-in;
 }
 
 .sprite:hover {
   transform: scale(1.1);
-  transition: transform 0.25s ease-in;
 }
 
 @media screen and (max-width: 768px) {
@@ -87,8 +87,6 @@ a {
   justify-content: space-between;
   align-items: center;
   letter-spacing: 0.15rem;
-
-  /* margin: 0 2rem; */
 }
 
 .text-align {
@@ -100,8 +98,6 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  /* text-align: center; */
   position: fixed;
   inset: 0;
   background-color: rgb(0 0 0 / 80%);

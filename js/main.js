@@ -62,6 +62,7 @@ function showModal(event) {
       if (event.target.getAttribute('data-entry-id') === data.entries[i].entryId.toString()) {
         data.editing = data.entries[i];
         $officialArt.src = data.entries[i].sprites.other['official-artwork'].front_default;
+        $officialArt.alt = data.editing.name;
         $editingName.textContent = data.entries[i].name.charAt(0).toUpperCase() + data.entries[i].name.slice(1);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
