@@ -79,6 +79,7 @@ $editingForm.addEventListener('submit', function (event) {
   data.editing.gender = $gender.value;
   data.editing.moves = $moves.value;
   $modal.className = 'modal hidden';
+  data.editing = null;
 });
 
 $xButton.addEventListener('click', function (event) {
