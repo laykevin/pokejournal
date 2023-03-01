@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
@@ -24,16 +25,84 @@
   </header>
   <main>
     <div class="text-center">
-      <h2>Box 1</h2>
+      <h1>Box 1</h1>
     </div>
     <div class="text-center">
       <form id="poke-name-form" action="">
-        <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')">
+        <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')" autocomplete="off">
         <input class="add-button" type="submit" value="Deposit">
       </form>
     </div>
-    <div class="container center">
+    <div class="container">
       <div class="box-sprites">
+      </div>
+    </div>
+    <div id="modal" class="modal hidden">
+      <div class="modal-container">
+        <div>
+          <div class="model-head">
+            <h2 class="poke-name"></h2>
+            <i class="fa-solid fa-circle-xmark fa-2x"></i>
+          </div>
+        </div>
+        <div class="row">
+          <div class="column-half">
+            <img class="official-art" src="" alt="">
+          </div>
+          <div class="column-half">
+            <form id="editing-form" action="">
+              <label for="nickname">Nickname</label>
+              <input id="nickname" type="text">
+              <div>
+                <div class="flex">
+                  <label for="nature">Nature</label>
+                  <label for="gender">Gender</label>
+                </div>
+                <div class="flex">
+                  <select name="nature" id="nature">
+                    <option value="adamant">Adamant</option>
+                    <option value="bashful">Bashful</option>
+                    <option value="bold">Bold</option>
+                    <option value="brave">Brave</option>
+                    <option value="calm">Calm</option>
+                    <option value="careful">Careful</option>
+                    <option value="docile">Docile</option>
+                    <option value="gentle">Gentle</option>
+                    <option value="hardy">Hardy</option>
+                    <option value="hasty">Hasty</option>
+                    <option value="impish">Impish</option>
+                    <option value="jolly">Jolly</option>
+                    <option value="lax">Lax</option>
+                    <option value="lonely">Lonely</option>
+                    <option value="mild">Mild</option>
+                    <option value="modest">Modest</option>
+                    <option value="naive">Naive</option>
+                    <option value="naughty">Naughty</option>
+                    <option value="quiet">Quiet</option>
+                    <option value="quirky">Quirky</option>
+                    <option value="raash">Rash</option>
+                    <option value="relaxed">Relaxed</option>
+                    <option value="sassy">Sassy</option>
+                    <option value="serious">Serious</option>
+                    <option value="timid">Timid</option>
+                  </select>
+                  <select name="gender" id="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="non-binary">Non Binary</option>
+                  </select>
+                </div>
+              </div>
+              <label for="moves">Moves</label>
+              <textarea name="moves" id="moves" cols="20" rows="4"></textarea>
+              <input class="save-button" type="submit" value="SAVE">
+            </form>
+          </div>
+        </div>
+        <div class="flex">
+          <button class="release">RELEASE</button>
+          <button class="withdraw">Withdraw</button>
+        </div>
       </div>
     </div>
   </main>
