@@ -106,6 +106,7 @@ function showModal(event) {
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        $depositButton.className = 'withdraw hidden';
       }
     }
   }
@@ -130,6 +131,7 @@ var $releaseButton = document.querySelector('#release');
 var $cancelButton = document.querySelector('#cancel');
 var $confirmButton = document.querySelector('#confirm');
 var $withdrawButton = document.querySelector('#withdraw');
+var $depositButton = document.querySelector('#deposit');
 $releaseButton.addEventListener('click', function (event) {
   $deleteModal.className = 'modal';
 });
