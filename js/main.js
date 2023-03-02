@@ -65,6 +65,7 @@ function renderPokemon(pokemon) {
   $sprite.className = 'sprite';
   $sprite.setAttribute('data-entry-id', pokemon.entryId);
   $sprite.src = pokemon.sprites.front_default;
+  $sprite.alt = pokemon.name;
   $spriteBox.appendChild($sprite);
   return $sprite;
 }
@@ -81,6 +82,7 @@ function renderParty(pokemon) {
   $partyImg.className = 'party-img';
   $partyImg.setAttribute('data-entry-id', pokemon.entryId);
   $partyImg.src = pokemon.sprites.other['official-artwork'].front_default;
+  $partyImg.alt = pokemon.name;
   $partyPicures.appendChild($partyCard);
   return $partyImg;
 }
@@ -187,6 +189,7 @@ function deletePokemon(event) {
       if (data.partyEntries.length === 0) {
         viewSwap('box-view');
       }
+      $withdrawButton.title = '';
       return;
     }
   }
@@ -203,6 +206,7 @@ function deletePokemon(event) {
 }
 $withdrawButton.addEventListener('click', function (event) {
   if (data.partyEntries.length === 6) {
+    $withdrawButton.title = 'Your party is full!';
     return;
   }
   deletePokemon(event);
@@ -224,6 +228,7 @@ $depositButton.addEventListener('click', function (event) {
       if (data.partyEntries.length === 0) {
         viewSwap('box-view');
       }
+      $withdrawButton.title = '';
       return;
     }
   }
