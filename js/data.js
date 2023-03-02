@@ -2,6 +2,7 @@
 var data = {
   view: 'box-view',
   entries: [],
+  partyEntries: [],
   editing: null,
   nextEntryId: 1
 };
