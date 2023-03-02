@@ -24,17 +24,28 @@
     </div>
   </header>
   <main>
-    <div class="text-center">
-      <h1>Box 1</h1>
+    <div id="box-view" class="">
+      <div class="text-center">
+        <h1>Box 1</h1>
+      </div>
+      <div class="text-center">
+        <form id="poke-name-form" action="">
+          <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')" autocomplete="off">
+          <input class="add-button" type="submit" value="Deposit">
+        </form>
+      </div>
+      <div class="container">
+        <div class="box-sprites">
+        </div>
+      </div>
     </div>
-    <div class="text-center">
-      <form id="poke-name-form" action="">
-        <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')" autocomplete="off">
-        <input class="add-button" type="submit" value="Deposit">
-      </form>
-    </div>
-    <div class="container">
-      <div class="box-sprites">
+    <div id="party-view" class="">
+      <div class="text-center">
+        <h1>My Party</h1>
+      </div>
+      <div class="container">
+        <div class="box-sprites">
+        </div>
       </div>
     </div>
     <div id="modal" class="modal hidden">

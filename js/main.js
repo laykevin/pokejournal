@@ -5,8 +5,12 @@ var $modal = document.querySelector('#modal');
 var $officialArt = document.querySelector('.official-art');
 var $editingName = document.querySelector('.poke-name');
 var $xButton = document.querySelector('.fa-circle-xmark');
-$pokemonNameForm.addEventListener('submit', storePokeData);
+// var $boxView = document.querySelector('#box-view');
+// function viewSwap(view) {
 
+// }
+
+$pokemonNameForm.addEventListener('submit', storePokeData);
 function storePokeData(event) {
   event.preventDefault();
   var pokeData = {
