@@ -70,8 +70,12 @@ a {
   transform: scale(1.1);
 }
 
-.party-img {
+.party-card {
   width: calc(100% / 3);
+}
+
+.party-img {
+  width: 100%;
   cursor: pointer;
 }
 
@@ -83,14 +87,14 @@ a {
     margin: 0 0.5rem;
   }
 
-  .party-img {
-    width: 80%;
-  }
-
   .party-row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .party-card {
+    width: 80%;
   }
 }
 

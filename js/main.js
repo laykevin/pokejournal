@@ -70,11 +70,18 @@ function renderPokemon(pokemon) {
 }
 
 function renderParty(pokemon) {
+  var $partyCard = document.createElement('div');
   var $partyImg = document.createElement('img');
+  var $partyCardName = document.createElement('h2');
+  $partyCard.appendChild($partyImg);
+  $partyCard.appendChild($partyCardName);
+  $partyCardName.className = 'text-center';
+  $partyCard.className = 'party-card';
+  $partyCardName.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
   $partyImg.className = 'party-img';
   $partyImg.setAttribute('data-entry-id', pokemon.entryId);
   $partyImg.src = pokemon.sprites.other['official-artwork'].front_default;
-  $partyPicures.appendChild($partyImg);
+  $partyPicures.appendChild($partyCard);
   return $partyImg;
 }
 
@@ -209,14 +216,14 @@ $depositButton.addEventListener('click', function (event) {
     if (data.editing.entryId === data.partyEntries[r].entryId) {
       data.partyEntries.splice(r, 1);
       var $removeImg = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
-      $removeImg.remove();
+      $removeImg.closest('.party-card').remove();
       $modal.className = 'modal hidden';
       data.entries.push(data.editing);
       renderPokemon(data.editing);
+      if (data.partyEntries.length === 0) {
+        viewSwap('box-view');
+      }
       return;
     }
-  }
-  if (data.partyEntries.length === 0) {
-    viewSwap('box-view');
   }
 });
