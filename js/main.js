@@ -75,7 +75,7 @@ function renderParty(pokemon) {
   var $partyCardName = document.createElement('h2');
   $partyCard.appendChild($partyImg);
   $partyCard.appendChild($partyCardName);
-  $partyCardName.className = 'text-center';
+  $partyCardName.className = 'text-center name-margin';
   $partyCard.className = 'party-card';
   $partyCardName.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
   $partyImg.className = 'party-img';
@@ -92,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
   for (var p = 0; p < data.partyEntries.length; p++) {
     renderParty(data.partyEntries[p]);
   }
+  viewSwap(data.view);
 });
 
 var $editingForm = document.querySelector('#editing-form');
@@ -180,7 +181,7 @@ function deletePokemon(event) {
     if (data.editing.entryId === data.partyEntries[q].entryId) {
       data.partyEntries.splice(q, 1);
       var $removeImg = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
-      $removeImg.remove();
+      $removeImg.closest('.party-card').remove();
       $deleteModal.className = 'modal hidden';
       $modal.className = 'modal hidden';
       if (data.partyEntries.length === 0) {

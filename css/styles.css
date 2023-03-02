@@ -9,7 +9,7 @@ header {
 }
 
 h1 {
-  margin: 1rem 0;
+  margin: 0.55rem 0;
 }
 
 .head {
@@ -66,17 +66,20 @@ a {
   transition: transform 0.25s ease-in;
 }
 
-.sprite:hover {
+.party-img {
+  width: 90%;
+  cursor: pointer;
+  transition: transform 0.25s ease-in;
+}
+
+.sprite:hover,
+.party-img:hover {
   transform: scale(1.1);
 }
 
 .party-card {
   width: calc(100% / 3);
-}
-
-.party-img {
-  width: 100%;
-  cursor: pointer;
+  text-align: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -190,4 +193,8 @@ select {
 
 .confirmation {
   margin: 5rem 0;
+}
+
+.name-margin {
+  margin: 0.2rem 0;
 }
