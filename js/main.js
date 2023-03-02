@@ -1,3 +1,5 @@
+var $billsPC = document.querySelector('#pc');
+var $myParty = document.querySelector('#party');
 var $pokemonName = document.querySelector('#poke-name');
 var $pokemonNameForm = document.querySelector('#poke-name-form');
 var $spriteBox = document.querySelector('.box-sprites');
@@ -5,10 +7,28 @@ var $modal = document.querySelector('#modal');
 var $officialArt = document.querySelector('.official-art');
 var $editingName = document.querySelector('.poke-name');
 var $xButton = document.querySelector('.fa-circle-xmark');
-// var $boxView = document.querySelector('#box-view');
-// function viewSwap(view) {
+var $boxView = document.querySelector('#box-view');
+var $partyView = document.querySelector('#party-view');
 
-// }
+function viewSwap(view) {
+  if (view === 'box-view') {
+    $boxView.className = '';
+    $partyView.className = 'hidden';
+  }
+  if (view === 'party-view') {
+    $boxView.className = 'hidden';
+    $partyView.className = '';
+  }
+}
+
+$billsPC.addEventListener('click', function (event) {
+  event.preventDefault();
+  viewSwap('box-view');
+});
+$myParty.addEventListener('click', function (event) {
+  event.preventDefault();
+  viewSwap('party-view');
+});
 
 $pokemonNameForm.addEventListener('submit', storePokeData);
 function storePokeData(event) {
