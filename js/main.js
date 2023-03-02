@@ -129,6 +129,7 @@ var $deleteModal = document.querySelector('#delete-modal');
 var $releaseButton = document.querySelector('#release');
 var $cancelButton = document.querySelector('#cancel');
 var $confirmButton = document.querySelector('#confirm');
+var $withdrawButton = document.querySelector('#withdraw');
 $releaseButton.addEventListener('click', function (event) {
   $deleteModal.className = 'modal';
 });
@@ -147,3 +148,8 @@ function deletePokemon(event) {
     }
   }
 }
+$withdrawButton.addEventListener('click', function (event) {
+  deletePokemon();
+  data.partyEntries.push(data.editing);
+  renderParty(data.editing);
+});
