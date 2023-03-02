@@ -9,7 +9,7 @@ header {
 }
 
 h1 {
-  margin: 1rem 0;
+  margin: 0.55rem 0;
 }
 
 .head {
@@ -54,7 +54,8 @@ a {
   font-weight: bold;
 }
 
-.box-sprites {
+.box-sprites,
+.party-row {
   display: flex;
   flex-wrap: wrap;
 }
@@ -65,8 +66,20 @@ a {
   transition: transform 0.25s ease-in;
 }
 
-.sprite:hover {
+.party-img {
+  width: 90%;
+  cursor: pointer;
+  transition: transform 0.25s ease-in;
+}
+
+.sprite:hover,
+.party-img:hover {
   transform: scale(1.1);
+}
+
+.party-card {
+  width: calc(100% / 3);
+  text-align: center;
 }
 
 @media screen and (max-width: 768px) {
@@ -75,6 +88,16 @@ a {
     flex-wrap: wrap;
     justify-content: space-between;
     margin: 0 0.5rem;
+  }
+
+  .party-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .party-card {
+    width: 80%;
   }
 }
 
@@ -170,4 +193,8 @@ select {
 
 .confirmation {
   margin: 5rem 0;
+}
+
+.name-margin {
+  margin: 0.2rem 0;
 }

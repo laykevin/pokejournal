@@ -18,23 +18,34 @@
     <div class="container">
       <div class="row head">
         <div class="white-text">PokeNav</div>
-        <a href="#">Bill's PC</a>
-        <a href="#">My Party</a>
+        <a id="pc" href="">Bill's PC</a>
+        <a id="party" href="">My Party</a>
       </div>
     </div>
   </header>
   <main>
-    <div class="text-center">
-      <h1>Box 1</h1>
+    <div id="box-view" class="">
+      <div class="text-center">
+        <h1>Box 1</h1>
+      </div>
+      <div class="text-center">
+        <form id="poke-name-form" action="">
+          <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')" autocomplete="off">
+          <input class="add-button" type="submit" value="Deposit">
+        </form>
+      </div>
+      <div class="container">
+        <div class="box-sprites">
+        </div>
+      </div>
     </div>
-    <div class="text-center">
-      <form id="poke-name-form" action="">
-        <input id="poke-name" class="add" type="text" placeholder="Add Pokemon" required oninput="setCustomValidity('')" autocomplete="off">
-        <input class="add-button" type="submit" value="Deposit">
-      </form>
-    </div>
-    <div class="container">
-      <div class="box-sprites">
+    <div id="party-view" class="hidden">
+      <div class="text-center">
+        <h1>My Party</h1>
+      </div>
+      <div class="container">
+        <div class="party-row">
+        </div>
       </div>
     </div>
     <div id="modal" class="modal hidden">
@@ -52,7 +63,7 @@
           <div class="column-half">
             <form id="editing-form" action="">
               <label for="nickname">Nickname</label>
-              <input id="nickname" type="text">
+              <input id="nickname" type="text" autocomplete="off">
               <div>
                 <div class="flex">
                   <label for="nature">Nature</label>
@@ -101,7 +112,8 @@
         </div>
         <div class="flex">
           <button id="release" class="release">RELEASE</button>
-          <button class="withdraw">Withdraw</button>
+          <button id="deposit" class="withdraw">Deposit</button>
+          <button id="withdraw" class="withdraw" title="">Withdraw</button>
         </div>
       </div>
     </div>
