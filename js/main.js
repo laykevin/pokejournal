@@ -3,6 +3,7 @@ var $myParty = document.querySelector('#party');
 var $pokemonName = document.querySelector('#poke-name');
 var $pokemonNameForm = document.querySelector('#poke-name-form');
 var $spriteBox = document.querySelector('.box-sprites');
+var $partyPicures = document.querySelector('.party-row');
 var $modal = document.querySelector('#modal');
 var $officialArt = document.querySelector('.official-art');
 var $editingName = document.querySelector('.poke-name');
@@ -19,6 +20,7 @@ function viewSwap(view) {
     $boxView.className = 'hidden';
     $partyView.className = '';
   }
+  data.view = view;
 }
 
 $billsPC.addEventListener('click', function (event) {
@@ -67,9 +69,21 @@ function renderPokemon(pokemon) {
   return $sprite;
 }
 
+function renderParty(pokemon) {
+  var $partyImg = document.createElement('img');
+  $partyImg.className = 'party-img';
+  $partyImg.setAttribute('data-entry-id', pokemon.entryId);
+  $partyImg.src = pokemon.sprites.other['official-artwork'].front_default;
+  $partyPicures.appendChild($partyImg);
+  return $partyImg;
+}
+
 document.addEventListener('DOMContentLoaded', function (event) {
   for (var i = 0; i < data.entries.length; i++) {
     renderPokemon(data.entries[i]);
+  }
+  for (var p = 0; p < data.partyEntries.length; p++) {
+    renderParty(data.partyEntries[p]);
   }
 });
 
