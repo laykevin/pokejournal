@@ -149,7 +149,13 @@ function deletePokemon(event) {
   }
 }
 $withdrawButton.addEventListener('click', function (event) {
+  if (data.partyEntries.length === 6) {
+    return;
+  }
   deletePokemon();
   data.partyEntries.push(data.editing);
   renderParty(data.editing);
+  if (data.partyEntries.length === 6) {
+    viewSwap('party-view');
+  }
 });
