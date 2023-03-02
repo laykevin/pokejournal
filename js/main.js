@@ -92,26 +92,53 @@ var $nickName = document.querySelector('#nickname');
 var $nature = document.querySelector('#nature');
 var $gender = document.querySelector('#gender');
 var $moves = document.querySelector('#moves');
-$spriteBox.addEventListener('click', showModal);
+
 function showModal(event) {
   if (event.target.className === 'sprite') {
     $modal.className = 'modal';
     for (var i = 0; i < data.entries.length; i++) {
       if (event.target.getAttribute('data-entry-id') === data.entries[i].entryId.toString()) {
         data.editing = data.entries[i];
-        $officialArt.src = data.entries[i].sprites.other['official-artwork'].front_default;
+        $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
         $officialArt.alt = data.editing.name;
-        $editingName.textContent = data.entries[i].name.charAt(0).toUpperCase() + data.entries[i].name.slice(1);
+        $editingName.textContent = data.editing.name.charAt(0).toUpperCase() + data.editing.name.slice(1);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
-        $depositButton.className = 'withdraw hidden';
       }
     }
   }
 }
 
+function showModalParty(event) {
+  if (event.target.className === 'party-img') {
+    $modal.className = 'modal';
+    for (var g = 0; g < data.partyEntries.length; g++) {
+      if (event.target.getAttribute('data-entry-id') === data.partyEntries[g].entryId.toString()) {
+        data.editing = data.partyEntries[g];
+        $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
+        $officialArt.alt = data.editing.name;
+        $editingName.textContent = data.editing.name.charAt(0).toUpperCase() + data.editing.name.slice(1);
+        $nickName.value = data.editing.nickname;
+        $nature.value = data.editing.nature;
+        $gender.value = data.editing.gender;
+        $moves.value = data.editing.moves;
+      }
+    }
+  }
+}
+
+$spriteBox.addEventListener('click', function (event) {
+  showModal(event);
+  $depositButton.className = 'withdraw hidden';
+  $withdrawButton.className = 'withdraw';
+});
+$partyPicures.addEventListener('click', function (event) {
+  showModalParty(event);
+  $depositButton.className = 'withdraw';
+  $withdrawButton.className = 'withdraw hidden';
+});
 $editingForm.addEventListener('submit', function (event) {
   event.preventDefault();
   data.editing.nickname = $nickName.value;
@@ -154,7 +181,7 @@ $withdrawButton.addEventListener('click', function (event) {
   if (data.partyEntries.length === 6) {
     return;
   }
-  deletePokemon();
+  deletePokemon(event);
   data.partyEntries.push(data.editing);
   renderParty(data.editing);
   if (data.partyEntries.length === 6) {
