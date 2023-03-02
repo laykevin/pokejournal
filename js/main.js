@@ -106,6 +106,7 @@ function showModal(event) {
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        return;
       }
     }
   }
@@ -124,6 +125,7 @@ function showModalParty(event) {
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        return;
       }
     }
   }
@@ -167,6 +169,19 @@ $cancelButton.addEventListener('click', function (event) {
 });
 $confirmButton.addEventListener('click', deletePokemon);
 function deletePokemon(event) {
+  for (var q = 0; q < data.partyEntries.length; q++) {
+    if (data.editing.entryId === data.partyEntries[q].entryId) {
+      data.partyEntries.splice(q, 1);
+      var $removeImg = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
+      $removeImg.remove();
+      $deleteModal.className = 'modal hidden';
+      $modal.className = 'modal hidden';
+      if (data.partyEntries.length === 0) {
+        viewSwap('box-view');
+      }
+      return;
+    }
+  }
   for (var d = 0; d < data.entries.length; d++) {
     if (data.editing.entryId === data.entries[d].entryId) {
       data.entries.splice(d, 1);
@@ -174,6 +189,7 @@ function deletePokemon(event) {
       $removeSprite.remove();
       $deleteModal.className = 'modal hidden';
       $modal.className = 'modal hidden';
+      return;
     }
   }
 }
@@ -186,5 +202,21 @@ $withdrawButton.addEventListener('click', function (event) {
   renderParty(data.editing);
   if (data.partyEntries.length === 6) {
     viewSwap('party-view');
+  }
+});
+$depositButton.addEventListener('click', function (event) {
+  for (var r = 0; r < data.partyEntries.length; r++) {
+    if (data.editing.entryId === data.partyEntries[r].entryId) {
+      data.partyEntries.splice(r, 1);
+      var $removeImg = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
+      $removeImg.remove();
+      $modal.className = 'modal hidden';
+      data.entries.push(data.editing);
+      renderPokemon(data.editing);
+      return;
+    }
+  }
+  if (data.partyEntries.length === 0) {
+    viewSwap('box-view');
   }
 });
