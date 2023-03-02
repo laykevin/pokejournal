@@ -86,3 +86,26 @@ $editingForm.addEventListener('submit', function (event) {
 $xButton.addEventListener('click', function (event) {
   $modal.className = 'modal hidden';
 });
+
+var $deleteModal = document.querySelector('#delete-modal');
+var $releaseButton = document.querySelector('#release');
+var $cancelButton = document.querySelector('#cancel');
+var $confirmButton = document.querySelector('#confirm');
+$releaseButton.addEventListener('click', function (event) {
+  $deleteModal.className = 'modal';
+});
+$cancelButton.addEventListener('click', function (event) {
+  $deleteModal.className = 'modal hidden';
+});
+$confirmButton.addEventListener('click', deletePokemon);
+function deletePokemon(event) {
+  for (var d = 0; d < data.entries.length; d++) {
+    if (data.editing.entryId === data.entries[d].entryId) {
+      data.entries.splice(d, 1);
+      var $removeSprite = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
+      $removeSprite.remove();
+      $deleteModal.className = 'modal hidden';
+      $modal.className = 'modal hidden';
+    }
+  }
+}
