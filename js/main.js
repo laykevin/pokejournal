@@ -7,6 +7,7 @@ var $partyPicures = document.querySelector('.party-row');
 var $modal = document.querySelector('#modal');
 var $officialArt = document.querySelector('.official-art');
 var $editingName = document.querySelector('.poke-name');
+var $pokedexNumber = document.querySelector('.pokedex-number');
 var $xButton = document.querySelector('.fa-circle-xmark');
 var $boxView = document.querySelector('#box-view');
 var $partyView = document.querySelector('#party-view');
@@ -37,7 +38,8 @@ function storePokeData(event) {
   event.preventDefault();
   var pokeData = {
     nickname: '',
-    moves: ''
+    moves: '',
+    shiny: false
   };
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'https://pokeapi.co/api/v2/pokemon/' + $pokemonName.value.toLowerCase());
@@ -50,6 +52,9 @@ function storePokeData(event) {
     }
     pokeData.sprites = xhr.response.sprites;
     pokeData.name = xhr.response.species.name;
+    pokeData.abilities = xhr.response.abilities;
+    pokeData.types = xhr.response.types;
+    pokeData.pokedexId = xhr.response.id;
     pokeData.entryId = data.nextEntryId;
     data.nextEntryId++;
     data.entries.push(pokeData);
@@ -64,9 +69,13 @@ function renderPokemon(pokemon) {
   var $sprite = document.createElement('img');
   $sprite.className = 'sprite';
   $sprite.setAttribute('data-entry-id', pokemon.entryId);
-  $sprite.src = pokemon.sprites.front_default;
   $sprite.alt = pokemon.name;
   $spriteBox.appendChild($sprite);
+  if (pokemon.shiny) {
+    $sprite.src = pokemon.sprites.front_shiny || pokemon.sprites.front_default; // if the first value is falsey, use the second value. New pokemon don't have shiny sprites in the PokeAPI yet.
+  } else {
+    $sprite.src = pokemon.sprites.front_default;
+  }
   return $sprite;
 }
 
@@ -78,24 +87,38 @@ function renderParty(pokemon) {
   $partyCard.appendChild($partyCardName);
   $partyCardName.className = 'text-center name-margin';
   $partyCard.className = 'party-card';
-  $partyCardName.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+  if (pokemon.nickname === '') {
+    $partyCardName.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+  } else {
+    $partyCardName.textContent = pokemon.nickname.charAt(0).toUpperCase() + pokemon.nickname.slice(1);
+  }
   $partyImg.className = 'party-img';
   $partyImg.setAttribute('data-entry-id', pokemon.entryId);
-  $partyImg.src = pokemon.sprites.other['official-artwork'].front_default;
   $partyImg.alt = pokemon.name;
   $partyPicures.appendChild($partyCard);
+  if (pokemon.shiny) {
+    $partyImg.src = pokemon.sprites.other['official-artwork'].front_shiny;
+  } else {
+    $partyImg.src = pokemon.sprites.other['official-artwork'].front_default;
+  }
   return $partyImg;
 }
 
 document.addEventListener('DOMContentLoaded', function (event) {
+  renderAll();
+  viewSwap(data.view);
+});
+
+function renderAll() {
+  $spriteBox.innerHTML = '';
+  $partyPicures.innerHTML = '';
   for (var i = 0; i < data.entries.length; i++) {
     renderPokemon(data.entries[i]);
   }
   for (var p = 0; p < data.partyEntries.length; p++) {
     renderParty(data.partyEntries[p]);
   }
-  viewSwap(data.view);
-});
+}
 
 var $editingForm = document.querySelector('#editing-form');
 var $nickName = document.querySelector('#nickname');
@@ -103,19 +126,28 @@ var $nature = document.querySelector('#nature');
 var $gender = document.querySelector('#gender');
 var $moves = document.querySelector('#moves');
 
+var initialShinyState = true;
 function showModal(event) {
   if (event.target.className === 'sprite') {
     $modal.className = 'modal';
     for (var i = 0; i < data.entries.length; i++) {
       if (event.target.getAttribute('data-entry-id') === data.entries[i].entryId.toString()) {
         data.editing = data.entries[i];
-        $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
         $officialArt.alt = data.editing.name;
+        $pokedexNumber.textContent = '#' + data.editing.pokedexId + ' ';
         $editingName.textContent = data.editing.name.charAt(0).toUpperCase() + data.editing.name.slice(1);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        initialShinyState = data.editing.shiny;
+        if (data.editing.shiny) {
+          $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
+          $shinyButton.classList.add('yellow');
+        } else {
+          $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
+          $shinyButton.classList.remove('yellow');
+        }
         return;
       }
     }
@@ -128,13 +160,21 @@ function showModalParty(event) {
     for (var g = 0; g < data.partyEntries.length; g++) {
       if (event.target.getAttribute('data-entry-id') === data.partyEntries[g].entryId.toString()) {
         data.editing = data.partyEntries[g];
-        $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
         $officialArt.alt = data.editing.name;
+        $pokedexNumber.textContent = '#' + data.editing.pokedexId + ' ';
         $editingName.textContent = data.editing.name.charAt(0).toUpperCase() + data.editing.name.slice(1);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        initialShinyState = data.editing.shiny;
+        if (data.editing.shiny) {
+          $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
+          $shinyButton.classList.add('yellow');
+        } else {
+          $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
+          $shinyButton.classList.remove('yellow');
+        }
         return;
       }
     }
@@ -158,11 +198,13 @@ $editingForm.addEventListener('submit', function (event) {
   data.editing.gender = $gender.value;
   data.editing.moves = $moves.value;
   $modal.className = 'modal hidden';
-  data.editing = null;
+
+  renderAll();
 });
 
 $xButton.addEventListener('click', function (event) {
   $modal.className = 'modal hidden';
+  data.editing.shiny = initialShinyState;
 });
 
 var $deleteModal = document.querySelector('#delete-modal');
@@ -207,6 +249,7 @@ function deletePokemon(event) {
 $withdrawButton.addEventListener('click', function (event) {
   if (data.partyEntries.length === 6) {
     $withdrawButton.title = 'Your party is full!';
+    showToast('<i class="fa-solid fa-circle-exclamation fa-lg"></i>' + ' ' + 'Your party is full!');
     return;
   }
   deletePokemon(event);
@@ -233,3 +276,27 @@ $depositButton.addEventListener('click', function (event) {
     }
   }
 });
+
+var $shinyButton = document.querySelector('.fa-star');
+$shinyButton.addEventListener('click', function (event) {
+  if (data.editing.shiny) {
+    data.editing.shiny = false;
+    $officialArt.src = data.editing.sprites.other['official-artwork'].front_default;
+    $shinyButton.classList.remove('yellow');
+  } else {
+    data.editing.shiny = true;
+    $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
+    $shinyButton.classList.add('yellow');
+  }
+});
+
+var $toastBox = document.querySelector('#toast-box');
+function showToast(message) {
+  var $toast = document.createElement('div');
+  $toast.classList.add('toast');
+  $toast.innerHTML = message;
+  $toastBox.appendChild($toast);
+  setTimeout(function () {
+    $toast.remove();
+  }, 1250);
+}
