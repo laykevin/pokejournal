@@ -19,7 +19,8 @@ h1 {
   align-items: center;
 }
 
-#poke-name-form {
+#poke-name-form,
+.flex-edit {
   display: flex;
 }
 
@@ -126,12 +127,19 @@ a {
   background-color: rgb(0 0 0 / 80%);
 }
 
-.modal-container {
+.modal-container,
+.delete-modal-container {
   max-width: 775px;
   margin: 0 auto;
   padding: 0 1.5rem;
-  background-color: white;
+  background-color: whitesmoke;
   border-radius: 5px;
+}
+
+.delete-modal-container {
+  background: url("https://sportshub.cbsistatic.com/i/2021/03/17/51a83182-1c70-4762-af32-73234d1a4c8b/pikachu-pokemon-1161138.jpg") center fixed;
+  background-size: fill;
+  padding: 0;
 }
 
 @media screen and (max-width: 768px) {
@@ -139,8 +147,14 @@ a {
     max-width: 300px;
     margin: 0 auto;
     padding: 0 1.5rem;
-    background-color: white;
+    background-color: whitesmoke;
   }
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0 0 0 /0.5);
 }
 
 .close-button {
@@ -175,12 +189,13 @@ select {
 .withdraw,
 .save-button {
   background-color: red;
-  padding: 0.75rem 0.5rem;
+  padding: 0.75rem 0;
   border-style: none;
   color: white;
   border-radius: 3px;
   margin-bottom: 0.5rem;
   cursor: pointer;
+  width: 5rem;
 }
 
 .withdraw {
@@ -192,9 +207,32 @@ select {
 }
 
 .confirmation {
-  margin: 5rem 0;
+  padding: 6rem 2rem 7rem;
 }
 
 .name-margin {
   margin: 0.2rem 0;
+}
+
+.relative {
+  position: relative;
+}
+
+.fa-star {
+  cursor: pointer;
+  position: absolute;
+  inset: 0;
+}
+
+.basis50 {
+  flex-basis: 50%;
+}
+
+.yellow {
+  fill: yellow;
+}
+
+.pokedex-number {
+  color: grey;
+  font-weight: lighter;
 }
