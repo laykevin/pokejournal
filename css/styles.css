@@ -246,8 +246,6 @@ select {
   align-items: flex-end;
   flex-direction: column;
   overflow: hidden;
-
-  /* padding: 1.5rem; */
 }
 
 .toast {
