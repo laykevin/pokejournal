@@ -249,6 +249,7 @@ function deletePokemon(event) {
 $withdrawButton.addEventListener('click', function (event) {
   if (data.partyEntries.length === 6) {
     $withdrawButton.title = 'Your party is full!';
+    showToast('<i class="fa-solid fa-circle-exclamation fa-lg"></i>' + ' ' + 'Your party is full!');
     return;
   }
   deletePokemon(event);
@@ -288,3 +289,14 @@ $shinyButton.addEventListener('click', function (event) {
     $shinyButton.classList.add('yellow');
   }
 });
+
+var $toastBox = document.querySelector('#toast-box');
+function showToast(message) {
+  var $toast = document.createElement('div');
+  $toast.classList.add('toast');
+  $toast.innerHTML = message;
+  $toastBox.appendChild($toast);
+  setTimeout(function () {
+    $toast.remove();
+  }, 1250);
+}

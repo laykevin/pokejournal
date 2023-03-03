@@ -59,7 +59,6 @@
         <div class="row">
           <div class="column-half relative">
             <img class="official-art" src="" alt="">
-            <!-- <i class="fa-solid fa-star fa-2x"></i> -->
             <svg class="fa-star" xmlns="http://www.w3.org/2000/svg" fill="#000000" width="32px" height="32px" viewBox="0 0 512 512" id="icons">
               <path
                 d="M208,512a24.84,24.84,0,0,1-23.34-16l-39.84-103.6a16.06,16.06,0,0,0-9.19-9.19L32,343.34a25,25,0,0,1,0-46.68l103.6-39.84a16.06,16.06,0,0,0,9.19-9.19L184.66,144a25,25,0,0,1,46.68,0l39.84,103.6a16.06,16.06,0,0,0,9.19,9.19l103,39.63A25.49,25.49,0,0,1,400,320.52a24.82,24.82,0,0,1-16,22.82l-103.6,39.84a16.06,16.06,0,0,0-9.19,9.19L231.34,496A24.84,24.84,0,0,1,208,512Zm66.85-254.84h0Z" />
@@ -68,8 +67,9 @@
               <path
                 d="M400,256a16,16,0,0,1-14.93-10.26l-22.84-59.37a8,8,0,0,0-4.6-4.6l-59.37-22.84a16,16,0,0,1,0-29.86l59.37-22.84a8,8,0,0,0,4.6-4.6L384.9,42.68a16.45,16.45,0,0,1,13.17-10.57,16,16,0,0,1,16.86,10.15l22.84,59.37a8,8,0,0,0,4.6,4.6l59.37,22.84a16,16,0,0,1,0,29.86l-59.37,22.84a8,8,0,0,0-4.6,4.6l-22.84,59.37A16,16,0,0,1,400,256Z" />
             </svg>
+
           </div>
-          <div class="column-half">
+          <div class="column-half relative">
             <form id="editing-form" action="">
               <label for="nickname">Nickname</label>
               <input id="nickname" type="text" autocomplete="off">
@@ -116,6 +116,8 @@
               <label for="moves">Moves</label>
               <textarea name="moves" id="moves" cols="20" rows="4"></textarea>
               <input class="save-button" type="submit" value="SAVE">
+              <div id="toast-box">
+              </div>
             </form>
           </div>
         </div>
@@ -137,6 +139,7 @@
         </div>
       </div>
     </div>
+
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

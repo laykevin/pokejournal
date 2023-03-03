@@ -229,10 +229,57 @@ select {
 }
 
 .yellow {
-  fill: yellow;
+  fill: rgb(250, 219, 131);
 }
 
 .pokedex-number {
   color: grey;
   font-weight: lighter;
+  letter-spacing: 0;
+}
+
+#toast-box {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  overflow: hidden;
+
+  /* padding: 1.5rem; */
+}
+
+.toast {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  width: 11rem;
+  height: 3rem;
+  background-color: rgba(0 0 0 /0.8);
+  border-radius: 3px;
+  margin: 0.25rem 0;
+  animation: fadein 0.25s, fadeout 0.5s 1s;
+}
+
+.toast i {
+  margin-right: 0.25rem;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeout {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media screen and (min-width: 768px) {
+  #toast-box {
+    bottom: 0;
+    right: 5.75rem;
+  }
 }
