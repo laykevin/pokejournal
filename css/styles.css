@@ -125,6 +125,7 @@ a {
   position: fixed;
   inset: 0;
   background-color: rgb(0 0 0 / 80%);
+  overflow-y: auto;
 }
 
 .modal-container,
@@ -192,7 +193,7 @@ select {
   padding: 0.75rem 0;
   border-style: none;
   color: white;
-  border-radius: 3px;
+  border-radius: 6px;
   margin: 0.5rem 0;
   cursor: pointer;
   width: 5rem;
@@ -287,11 +288,13 @@ select {
 }
 
 .type {
-  margin: 1rem;
-  padding: 0.25rem 1.5rem;
+  display: inline-block;
+  margin: 1rem 0.5rem;
+  padding: 0.26rem 1.5rem;
   border: 1px solid black;
   border-radius: 75rem;
   color: white;
+  width: 6.5rem;
   background-color: orange;
 }
 
