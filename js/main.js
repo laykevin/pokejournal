@@ -141,6 +141,7 @@ function showModal(event) {
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
         initialShinyState = data.editing.shiny;
+        renderType();
         if (data.editing.shiny) {
           $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
           $shinyButton.classList.add('yellow');
@@ -168,6 +169,7 @@ function showModalParty(event) {
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
         initialShinyState = data.editing.shiny;
+        renderType();
         if (data.editing.shiny) {
           $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
           $shinyButton.classList.add('yellow');
@@ -299,4 +301,16 @@ function showToast(message) {
   setTimeout(function () {
     $toast.remove();
   }, 1250);
+}
+
+var $typesContainer = document.querySelector('#types-container');
+function renderType() {
+  $typesContainer.innerHTML = '';
+  for (var t = 0; t < data.editing.types.length; t++) {
+    var $type = document.createElement('span');
+    $type.classList.add('type');
+    $type.classList.add(data.editing.types[t].type.name);
+    $type.textContent = data.editing.types[t].type.name.charAt(0).toUpperCase() + data.editing.types[t].type.name.slice(1);
+    $typesContainer.appendChild($type);
+  }
 }
