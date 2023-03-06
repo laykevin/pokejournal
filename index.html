@@ -67,52 +67,88 @@
               <path
                 d="M400,256a16,16,0,0,1-14.93-10.26l-22.84-59.37a8,8,0,0,0-4.6-4.6l-59.37-22.84a16,16,0,0,1,0-29.86l59.37-22.84a8,8,0,0,0,4.6-4.6L384.9,42.68a16.45,16.45,0,0,1,13.17-10.57,16,16,0,0,1,16.86,10.15l22.84,59.37a8,8,0,0,0,4.6,4.6l59.37,22.84a16,16,0,0,1,0,29.86l-59.37,22.84a8,8,0,0,0-4.6,4.6l-22.84,59.37A16,16,0,0,1,400,256Z" />
             </svg>
+            <img id="ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="ball">
+            <div id="ball-popover" class="hidden">
+              <img title="Master Ball" class="master-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png" alt="ball">
+              <img title="Ultra Ball" class="ultra-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png" alt="ball">
+              <img title="Great Ball" class="great-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/great-ball.png" alt="ball">
+              <img title="Poke Ball" class="poke-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" alt="ball">
+              <img title="Safari Ball" class="safari-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/safari-ball.png" alt="ball">
+              <img title="Park Ball" class="park-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/park-ball.png" alt="ball">
+              <img title="Sport Ball" class="sport-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sport-ball.png" alt="ball">
+              <img title="Net Ball" class="net-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/net-ball.png" alt="ball">
+              <img title="Dive Ball" class="dive-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dive-ball.png" alt="ball">
+              <img title="Nest Ball" class="nest-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nest-ball.png" alt="ball">
+              <img title="Repeat Ball" class="repeat-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/repeat-ball.png" alt="ball">
+              <img title="Timer Ball" class="timer-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/timer-ball.png" alt="ball">
+              <img title="Luxury Ball" class="luxury-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luxury-ball.png" alt="ball">
+              <img title="Premier Ball" class="premier-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/premier-ball.png" alt="ball">
+              <img title="Dusk Ball" class="dusk-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dusk-ball.png" alt="ball">
+              <img title="Heal Ball" class="heal-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-ball.png" alt="ball">
+              <img title="Quick Ball" class="quick-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-ball.png" alt="ball">
+              <img title="Cherish Ball" class="cherish-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cherish-ball.png" alt="ball">
+              <img title="Dream Ball" class="dream-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dream-ball.png" alt="ball">
+              <img title="Beast Ball" class="beast-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beast-ball.png" alt="ball">
+              <img title="Lure Ball" class="lure-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lure-ball.png" alt="ball">
+              <img title="Level Ball" class="level-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/level-ball.png" alt="ball">
+              <img title="Moon Ball" class="moon-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moon-ball.png" alt="ball">
+              <img title="Heavy Ball" class="heavy-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heavy-ball.png" alt="ball">
+              <img title="Fast Ball" class="fast-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fast-ball.png" alt="ball">
+              <img title="Friend Ball" class="friend-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/friend-ball.png" alt="ball">
+              <img title="Love Ball" class="love-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/love-ball.png" alt="ball">
+              <img title="Close" id="cancel-ball" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/love-ball.png" alt="ball">
+            </div>
             <div id="types-container">
             </div>
           </div>
           <div class="column-half relative">
             <form id="editing-form" action="">
-              <label for="nickname">Nickname</label>
-              <input id="nickname" type="text" autocomplete="off">
-              <div>
-                <div class="flex-edit">
-                  <label class="basis50" for="nature">Nature</label>
-                  <label class="basis50" for="gender">Gender</label>
-                </div>
-                <div class="flex">
-                  <select name="nature" id="nature">
-                    <option value="adamant">Adamant</option>
-                    <option value="bashful">Bashful</option>
-                    <option value="bold">Bold</option>
-                    <option value="brave">Brave</option>
-                    <option value="calm">Calm</option>
-                    <option value="careful">Careful</option>
-                    <option value="docile">Docile</option>
-                    <option value="gentle">Gentle</option>
-                    <option value="hardy">Hardy</option>
-                    <option value="hasty">Hasty</option>
-                    <option value="impish">Impish</option>
-                    <option value="jolly">Jolly</option>
-                    <option value="lax">Lax</option>
-                    <option value="lonely">Lonely</option>
-                    <option value="mild">Mild</option>
-                    <option value="modest">Modest</option>
-                    <option value="naive">Naive</option>
-                    <option value="naughty">Naughty</option>
-                    <option value="quiet">Quiet</option>
-                    <option value="quirky">Quirky</option>
-                    <option value="raash">Rash</option>
-                    <option value="relaxed">Relaxed</option>
-                    <option value="sassy">Sassy</option>
-                    <option value="serious">Serious</option>
-                    <option value="timid">Timid</option>
-                  </select>
-                  <select name="gender" id="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="non-binary">Non Binary</option>
-                  </select>
-                </div>
+              <div class="flex-edit">
+                <label class="basis75" for="nickname">Nickname</label>
+                <label class="basis33" for="gender">Gender</label>
+              </div>
+              <div class="flex-edit">
+                <input class="basis75" id="nickname" type="text" autocomplete="off">
+                <select class="basis33" name="gender" id="gender">
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="non-binary">Non Binary</option>
+                </select>
+              </div>
+              <div class="flex-edit">
+                <label class="basis50" for="nature">Nature</label>
+                <label class="basis50" for="ability">Ability</label>
+              </div>
+              <div class="flex">
+                <select name="nature" id="nature">
+                  <option value="adamant">Adamant</option>
+                  <option value="bashful">Bashful</option>
+                  <option value="bold">Bold</option>
+                  <option value="brave">Brave</option>
+                  <option value="calm">Calm</option>
+                  <option value="careful">Careful</option>
+                  <option value="docile">Docile</option>
+                  <option value="gentle">Gentle</option>
+                  <option value="hardy">Hardy</option>
+                  <option value="hasty">Hasty</option>
+                  <option value="impish">Impish</option>
+                  <option value="jolly">Jolly</option>
+                  <option value="lax">Lax</option>
+                  <option value="lonely">Lonely</option>
+                  <option value="mild">Mild</option>
+                  <option value="modest">Modest</option>
+                  <option value="naive">Naive</option>
+                  <option value="naughty">Naughty</option>
+                  <option value="quiet">Quiet</option>
+                  <option value="quirky">Quirky</option>
+                  <option value="raash">Rash</option>
+                  <option value="relaxed">Relaxed</option>
+                  <option value="sassy">Sassy</option>
+                  <option value="serious">Serious</option>
+                  <option value="timid">Timid</option>
+                </select>
+                <select name="ability" id="ability">
+                </select>
               </div>
               <label for="moves">Moves</label>
               <textarea name="moves" id="moves" cols="20" rows="4"></textarea>

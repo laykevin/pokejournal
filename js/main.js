@@ -5,6 +5,7 @@ var $pokemonNameForm = document.querySelector('#poke-name-form');
 var $spriteBox = document.querySelector('.box-sprites');
 var $partyPicures = document.querySelector('.party-row');
 var $modal = document.querySelector('#modal');
+var $modalContainer = document.querySelector('.modal-container');
 var $officialArt = document.querySelector('.official-art');
 var $editingName = document.querySelector('.poke-name');
 var $pokedexNumber = document.querySelector('.pokedex-number');
@@ -16,10 +17,14 @@ function viewSwap(view) {
   if (view === 'box-view') {
     $boxView.className = '';
     $partyView.className = 'hidden';
+    $billsPC.className = 'underline';
+    $myParty.className = '';
   }
   if (view === 'party-view') {
     $boxView.className = 'hidden';
     $partyView.className = '';
+    $billsPC.className = '';
+    $myParty.className = 'underline';
   }
   data.view = view;
 }
@@ -39,6 +44,7 @@ function storePokeData(event) {
   var pokeData = {
     nickname: '',
     moves: '',
+    ball: 'poke-ball',
     shiny: false
   };
   var xhr = new XMLHttpRequest();
@@ -88,7 +94,7 @@ function renderParty(pokemon) {
   $partyCardName.className = 'text-center name-margin';
   $partyCard.className = 'party-card';
   if (pokemon.nickname === '') {
-    $partyCardName.textContent = pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1);
+    $partyCardName.textContent = titleCase(pokemon.name);
   } else {
     $partyCardName.textContent = pokemon.nickname.charAt(0).toUpperCase() + pokemon.nickname.slice(1);
   }
@@ -125,6 +131,7 @@ var $nickName = document.querySelector('#nickname');
 var $nature = document.querySelector('#nature');
 var $gender = document.querySelector('#gender');
 var $moves = document.querySelector('#moves');
+var $ability = document.querySelector('#ability');
 
 var initialShinyState = true;
 function showModal(event) {
@@ -133,13 +140,18 @@ function showModal(event) {
     for (var i = 0; i < data.entries.length; i++) {
       if (event.target.getAttribute('data-entry-id') === data.entries[i].entryId.toString()) {
         data.editing = data.entries[i];
+        lastClickedBall = data.editing.ball;
+        $ballPopover.classList.add('hidden');
+        renderAbilities();
         $officialArt.alt = data.editing.name;
         $pokedexNumber.textContent = '#' + data.editing.pokedexId + ' ';
-        $editingName.textContent = data.editing.name.charAt(0).toUpperCase() + data.editing.name.slice(1);
+        $editingName.textContent = titleCase(data.editing.name);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        $ability.value = data.editing.ability;
+        $ballButton.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/' + data.editing.ball + '.png';
         initialShinyState = data.editing.shiny;
         renderType();
         if (data.editing.shiny) {
@@ -161,13 +173,18 @@ function showModalParty(event) {
     for (var g = 0; g < data.partyEntries.length; g++) {
       if (event.target.getAttribute('data-entry-id') === data.partyEntries[g].entryId.toString()) {
         data.editing = data.partyEntries[g];
+        lastClickedBall = data.editing.ball;
+        $ballPopover.classList.add('hidden');
+        renderAbilities();
         $officialArt.alt = data.editing.name;
         $pokedexNumber.textContent = '#' + data.editing.pokedexId + ' ';
-        $editingName.textContent = data.editing.name.charAt(0).toUpperCase() + data.editing.name.slice(1);
+        $editingName.textContent = titleCase(data.editing.name);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
         $moves.value = data.editing.moves;
+        $ability.value = data.editing.ability;
+        $ballButton.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/' + data.editing.ball + '.png';
         initialShinyState = data.editing.shiny;
         renderType();
         if (data.editing.shiny) {
@@ -199,13 +216,16 @@ $editingForm.addEventListener('submit', function (event) {
   data.editing.nature = $nature.value;
   data.editing.gender = $gender.value;
   data.editing.moves = $moves.value;
-  $modal.className = 'modal hidden';
-
+  data.editing.ability = $ability.value;
+  data.editing.ball = lastClickedBall;
+  $modal.classList.add('fadeout');
+  setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
   renderAll();
 });
 
 $xButton.addEventListener('click', function (event) {
-  $modal.className = 'modal hidden';
+  $modal.classList.add('fadeout');
+  setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
   data.editing.shiny = initialShinyState;
 });
 
@@ -228,12 +248,13 @@ function deletePokemon(event) {
       data.partyEntries.splice(q, 1);
       var $removeImg = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
       $removeImg.closest('.party-card').remove();
-      $deleteModal.className = 'modal hidden';
-      $modal.className = 'modal hidden';
+      $deleteModal.classList.add('fadeout');
+      setTimeout(function () { $deleteModal.className = 'modal hidden'; }, 750);
+      $modal.classList.add('fadeout');
+      setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
       if (data.partyEntries.length === 0) {
         viewSwap('box-view');
       }
-      $withdrawButton.title = '';
       return;
     }
   }
@@ -242,15 +263,17 @@ function deletePokemon(event) {
       data.entries.splice(d, 1);
       var $removeSprite = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
       $removeSprite.remove();
-      $deleteModal.className = 'modal hidden';
-      $modal.className = 'modal hidden';
+      $deleteModal.classList.add('fadeout');
+      setTimeout(function () { $deleteModal.className = 'modal hidden'; }, 750);
+      $modal.classList.add('fadeout');
+      setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
       return;
     }
   }
 }
 $withdrawButton.addEventListener('click', function (event) {
+  data.editing.shiny = initialShinyState;
   if (data.partyEntries.length === 6) {
-    $withdrawButton.title = 'Your party is full!';
     showToast('<i class="fa-solid fa-circle-exclamation fa-lg"></i>' + ' ' + 'Your party is full!');
     return;
   }
@@ -262,24 +285,28 @@ $withdrawButton.addEventListener('click', function (event) {
   }
 });
 $depositButton.addEventListener('click', function (event) {
+  data.editing.shiny = initialShinyState;
   for (var r = 0; r < data.partyEntries.length; r++) {
     if (data.editing.entryId === data.partyEntries[r].entryId) {
       data.partyEntries.splice(r, 1);
       var $removeImg = document.querySelector('[data-entry-id="' + data.editing.entryId.toString() + '"]');
       $removeImg.closest('.party-card').remove();
-      $modal.className = 'modal hidden';
+      $modal.classList.add('fadeout');
+      setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
       data.entries.push(data.editing);
       renderPokemon(data.editing);
       if (data.partyEntries.length === 0) {
         viewSwap('box-view');
       }
-      $withdrawButton.title = '';
       return;
     }
   }
 });
-
+var lastClickedBall = 'poke-ball';
 var $shinyButton = document.querySelector('.fa-star');
+var $ballButton = document.querySelector('#ball');
+var $ballPopover = document.querySelector('#ball-popover');
+var $cancelBall = document.querySelector('#cancel-ball');
 $shinyButton.addEventListener('click', function (event) {
   if (data.editing.shiny) {
     data.editing.shiny = false;
@@ -289,6 +316,19 @@ $shinyButton.addEventListener('click', function (event) {
     data.editing.shiny = true;
     $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
     $shinyButton.classList.add('yellow');
+  }
+});
+$ballButton.addEventListener('click', function (event) {
+  $cancelBall.src = event.target.src;
+  $ballPopover.classList.remove('hidden');
+});
+$ballPopover.addEventListener('click', function (event) {
+  if (event.target.tagName === 'IMG') {
+    $ballButton.src = event.target.src;
+    $ballButton.className = event.target.className;
+    lastClickedBall = event.target.className;
+    $ballPopover.classList.add('fadeout');
+    setTimeout(function () { $ballPopover.className = 'hidden'; }, 750);
   }
 });
 
@@ -313,4 +353,26 @@ function renderType() {
     $type.textContent = data.editing.types[t].type.name.charAt(0).toUpperCase() + data.editing.types[t].type.name.slice(1);
     $typesContainer.appendChild($type);
   }
+  $modalContainer.className = 'modal-container';
+  $modalContainer.classList.add(data.editing.types[0].type.name + '1');
+}
+
+function renderAbilities() {
+  $ability.innerHTML = '';
+  for (var a = 0; a < data.editing.abilities.length; a++) {
+    var $abilityOption = document.createElement('option');
+    $abilityOption.value = data.editing.abilities[a].ability.name;
+    $abilityOption.textContent = titleCase(data.editing.abilities[a].ability.name);
+    $ability.appendChild($abilityOption);
+  }
+}
+
+function titleCase(string) {
+  var hyphenSplit = string.split('-');
+  var splitArray = [];
+  for (var h = 0; h < hyphenSplit.length; h++) {
+    splitArray.push(hyphenSplit[h].charAt(0).toUpperCase() + hyphenSplit[h].slice(1));
+  }
+  var finished = splitArray.join(' ');
+  return finished;
 }
