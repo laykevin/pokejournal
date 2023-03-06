@@ -15,15 +15,10 @@ var $partyView = document.querySelector('#party-view');
 
 function viewSwap(view) {
   if (view === 'box-view') {
-    // $boxView.className = '';
-    // $partyView.className = 'hidden';
+    $boxView.className = '';
+    $partyView.className = 'hidden';
     $billsPC.className = 'underline';
     $myParty.className = '';
-    $partyView.classList.add('fadeout');
-
-    setTimeout(function () {
-      $boxView.className = ''; $partyView.className = 'hidden'; $boxView.classList.add('fadein');
-    }, 750);
   }
   if (view === 'party-view') {
     $boxView.className = 'hidden';
