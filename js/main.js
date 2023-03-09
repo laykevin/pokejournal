@@ -15,14 +15,14 @@ var $partyView = document.querySelector('#party-view');
 
 function viewSwap(view) {
   if (view === 'box-view') {
-    $boxView.className = '';
+    $boxView.className = 'fadein';
     $partyView.className = 'hidden';
     $billsPC.className = 'underline';
     $myParty.className = '';
   }
   if (view === 'party-view') {
     $boxView.className = 'hidden';
-    $partyView.className = '';
+    $partyView.className = 'fadein';
     $billsPC.className = '';
     $myParty.className = 'underline';
   }
@@ -43,7 +43,10 @@ function storePokeData(event) {
   event.preventDefault();
   var pokeData = {
     nickname: '',
-    moves: '',
+    move1: '',
+    move2: '',
+    move3: '',
+    move4: '',
     ball: 'poke-ball',
     shiny: false
   };
@@ -56,6 +59,7 @@ function storePokeData(event) {
       $pokemonName.reportValidity();
       return;
     }
+    pokeData.movesList = xhr.response.moves;
     pokeData.sprites = xhr.response.sprites;
     pokeData.name = xhr.response.species.name;
     pokeData.abilities = xhr.response.abilities;
@@ -130,8 +134,11 @@ var $editingForm = document.querySelector('#editing-form');
 var $nickName = document.querySelector('#nickname');
 var $nature = document.querySelector('#nature');
 var $gender = document.querySelector('#gender');
-var $moves = document.querySelector('#moves');
 var $ability = document.querySelector('#ability');
+var $move1 = document.querySelector('#move1');
+var $move2 = document.querySelector('#move2');
+var $move3 = document.querySelector('#move3');
+var $move4 = document.querySelector('#move4');
 
 var initialShinyState = true;
 function showModal(event) {
@@ -141,16 +148,21 @@ function showModal(event) {
       if (event.target.getAttribute('data-entry-id') === data.entries[i].entryId.toString()) {
         data.editing = data.entries[i];
         lastClickedBall = data.editing.ball;
+        $ballButton.className = lastClickedBall;
         $ballPopover.classList.add('hidden');
         renderAbilities();
+        renderMoves();
         $officialArt.alt = data.editing.name;
         $pokedexNumber.textContent = '#' + data.editing.pokedexId + ' ';
         $editingName.textContent = titleCase(data.editing.name);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
-        $moves.value = data.editing.moves;
         $ability.value = data.editing.ability;
+        $move1.value = data.editing.move1;
+        $move2.value = data.editing.move2;
+        $move3.value = data.editing.move3;
+        $move4.value = data.editing.move4;
         $ballButton.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/' + data.editing.ball + '.png';
         initialShinyState = data.editing.shiny;
         renderType();
@@ -174,16 +186,21 @@ function showModalParty(event) {
       if (event.target.getAttribute('data-entry-id') === data.partyEntries[g].entryId.toString()) {
         data.editing = data.partyEntries[g];
         lastClickedBall = data.editing.ball;
+        $ballButton.className = lastClickedBall;
         $ballPopover.classList.add('hidden');
         renderAbilities();
+        renderMoves();
         $officialArt.alt = data.editing.name;
         $pokedexNumber.textContent = '#' + data.editing.pokedexId + ' ';
         $editingName.textContent = titleCase(data.editing.name);
         $nickName.value = data.editing.nickname;
         $nature.value = data.editing.nature;
         $gender.value = data.editing.gender;
-        $moves.value = data.editing.moves;
         $ability.value = data.editing.ability;
+        $move1.value = data.editing.move1;
+        $move2.value = data.editing.move2;
+        $move3.value = data.editing.move3;
+        $move4.value = data.editing.move4;
         $ballButton.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/' + data.editing.ball + '.png';
         initialShinyState = data.editing.shiny;
         renderType();
@@ -215,8 +232,11 @@ $editingForm.addEventListener('submit', function (event) {
   data.editing.nickname = $nickName.value;
   data.editing.nature = $nature.value;
   data.editing.gender = $gender.value;
-  data.editing.moves = $moves.value;
   data.editing.ability = $ability.value;
+  data.editing.move1 = $move1.value;
+  data.editing.move2 = $move2.value;
+  data.editing.move3 = $move3.value;
+  data.editing.move4 = $move4.value;
   data.editing.ball = lastClickedBall;
   $modal.classList.add('fadeout');
   setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
@@ -320,6 +340,7 @@ $shinyButton.addEventListener('click', function (event) {
 });
 $ballButton.addEventListener('click', function (event) {
   $cancelBall.src = event.target.src;
+  $cancelBall.className = event.target.className;
   $ballPopover.classList.remove('hidden');
 });
 $ballPopover.addEventListener('click', function (event) {
@@ -364,6 +385,31 @@ function renderAbilities() {
     $abilityOption.value = data.editing.abilities[a].ability.name;
     $abilityOption.textContent = titleCase(data.editing.abilities[a].ability.name);
     $ability.appendChild($abilityOption);
+  }
+}
+
+function renderMoves() {
+  $move1.innerHTML = '';
+  $move2.innerHTML = '';
+  $move3.innerHTML = '';
+  $move4.innerHTML = '';
+  for (var m = 0; m < data.editing.movesList.length; m++) {
+    var $moveOption1 = document.createElement('option');
+    var $moveOption2 = document.createElement('option');
+    var $moveOption3 = document.createElement('option');
+    var $moveOption4 = document.createElement('option');
+    $moveOption1.value = data.editing.movesList[m].move.name;
+    $moveOption1.textContent = titleCase(data.editing.movesList[m].move.name);
+    $moveOption2.value = data.editing.movesList[m].move.name;
+    $moveOption2.textContent = titleCase(data.editing.movesList[m].move.name);
+    $moveOption3.value = data.editing.movesList[m].move.name;
+    $moveOption3.textContent = titleCase(data.editing.movesList[m].move.name);
+    $moveOption4.value = data.editing.movesList[m].move.name;
+    $moveOption4.textContent = titleCase(data.editing.movesList[m].move.name);
+    $move1.appendChild($moveOption1);
+    $move2.appendChild($moveOption2);
+    $move3.appendChild($moveOption3);
+    $move4.appendChild($moveOption4);
   }
 }
 
