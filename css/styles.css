@@ -539,7 +539,7 @@ select {
 }
 
 .ghost1 {
-  background-image: linear-gradient(to right, white, : #705898);
+  background-image: linear-gradient(to right, white, #705898);
   border-color: #493963;
 }
 
@@ -556,4 +556,8 @@ select {
 .fairy1 {
   background-image: linear-gradient(to right, white, #ee99ac);
   border-color: #9b6470;
+}
+
+#move-selects > select {
+  margin: 0;
 }
