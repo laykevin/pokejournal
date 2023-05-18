@@ -5,6 +5,7 @@ var $pokemonNameForm = document.querySelector('#poke-name-form');
 var $spriteBox = document.querySelector('.box-sprites');
 var $partyPicures = document.querySelector('.party-row');
 var $modal = document.querySelector('#modal');
+var $glassModal = document.querySelector('#glass-modal');
 var $modalContainer = document.querySelector('.modal-container');
 var $officialArt = document.querySelector('.official-art');
 var $editingName = document.querySelector('.poke-name');
@@ -39,6 +40,7 @@ $myParty.addEventListener('click', function (event) {
 });
 
 $pokemonNameForm.addEventListener('submit', storePokeData);
+
 function storePokeData(event) {
   event.preventDefault();
   var pokeData = {
@@ -82,7 +84,7 @@ function renderPokemon(pokemon) {
   $sprite.alt = pokemon.name;
   $spriteBox.appendChild($sprite);
   if (pokemon.shiny) {
-    $sprite.src = pokemon.sprites.front_shiny || pokemon.sprites.front_default; // if the first value is falsey, use the second value. New pokemon don't have shiny sprites in the PokeAPI yet.
+    $sprite.src = pokemon.sprites.front_shiny || pokemon.sprites.front_default;
   } else {
     $sprite.src = pokemon.sprites.front_default;
   }
@@ -147,6 +149,7 @@ function showModal(event) {
     for (var i = 0; i < data.entries.length; i++) {
       if (event.target.getAttribute('data-entry-id') === data.entries[i].entryId.toString()) {
         data.editing = data.entries[i];
+        $glassModal.className = '';
         lastClickedBall = data.editing.ball;
         $ballButton.className = lastClickedBall;
         $ballPopover.classList.add('hidden');
@@ -166,6 +169,7 @@ function showModal(event) {
         $ballButton.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/' + data.editing.ball + '.png';
         initialShinyState = data.editing.shiny;
         renderType();
+        setTimeout(function () { $glassModal.className = 'hidden'; }, 850);
         if (data.editing.shiny) {
           $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
           $shinyButton.classList.add('yellow');
@@ -185,6 +189,7 @@ function showModalParty(event) {
     for (var g = 0; g < data.partyEntries.length; g++) {
       if (event.target.getAttribute('data-entry-id') === data.partyEntries[g].entryId.toString()) {
         data.editing = data.partyEntries[g];
+        $glassModal.className = '';
         lastClickedBall = data.editing.ball;
         $ballButton.className = lastClickedBall;
         $ballPopover.classList.add('hidden');
@@ -204,6 +209,7 @@ function showModalParty(event) {
         $ballButton.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/' + data.editing.ball + '.png';
         initialShinyState = data.editing.shiny;
         renderType();
+        setTimeout(function () { $glassModal.className = 'hidden'; }, 850);
         if (data.editing.shiny) {
           $officialArt.src = data.editing.sprites.other['official-artwork'].front_shiny;
           $shinyButton.classList.add('yellow');
@@ -229,6 +235,7 @@ $partyPicures.addEventListener('click', function (event) {
 });
 $editingForm.addEventListener('submit', function (event) {
   event.preventDefault();
+  $glassModal.className = '';
   data.editing.nickname = $nickName.value;
   data.editing.nature = $nature.value;
   data.editing.gender = $gender.value;
@@ -239,13 +246,14 @@ $editingForm.addEventListener('submit', function (event) {
   data.editing.move4 = $move4.value;
   data.editing.ball = lastClickedBall;
   $modal.classList.add('fadeout');
-  setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
+  setTimeout(function () { $modal.className = 'modal hidden'; $glassModal.className = 'hidden'; }, 750);
   renderAll();
 });
 
 $xButton.addEventListener('click', function (event) {
+  $glassModal.className = '';
   $modal.classList.add('fadeout');
-  setTimeout(function () { $modal.className = 'modal hidden'; }, 750);
+  setTimeout(function () { $modal.className = 'modal hidden'; $glassModal.className = 'hidden'; }, 750);
   data.editing.shiny = initialShinyState;
 });
 
@@ -388,28 +396,68 @@ function renderAbilities() {
   }
 }
 
+var move1 = '';
+var move2 = '';
+var move3 = '';
+var move4 = '';
+
+function moveCheck(value) {
+  return value === move1 || value === move2 || value === move3 || value === move4;
+}
+
+function movesData() {
+  return [
+    { el: $move1, arg: 1, setMoveName: newName => { move1 = newName; }, currentMove: data.editing.move1 },
+    { el: $move2, arg: 2, setMoveName: newName => { move2 = newName; }, currentMove: data.editing.move2 },
+    { el: $move3, arg: 3, setMoveName: newName => { move3 = newName; }, currentMove: data.editing.move3 },
+    { el: $move4, arg: 4, setMoveName: newName => { move4 = newName; }, currentMove: data.editing.move4 }
+  ];
+}
+
 function renderMoves() {
-  $move1.innerHTML = '';
-  $move2.innerHTML = '';
-  $move3.innerHTML = '';
-  $move4.innerHTML = '';
+  movesData().forEach(move => {
+    move.el.innerHTML = '';
+    move.setMoveName(move.currentMove);
+  });
   for (var m = 0; m < data.editing.movesList.length; m++) {
-    var $moveOption1 = document.createElement('option');
-    var $moveOption2 = document.createElement('option');
-    var $moveOption3 = document.createElement('option');
-    var $moveOption4 = document.createElement('option');
-    $moveOption1.value = data.editing.movesList[m].move.name;
-    $moveOption1.textContent = titleCase(data.editing.movesList[m].move.name);
-    $moveOption2.value = data.editing.movesList[m].move.name;
-    $moveOption2.textContent = titleCase(data.editing.movesList[m].move.name);
-    $moveOption3.value = data.editing.movesList[m].move.name;
-    $moveOption3.textContent = titleCase(data.editing.movesList[m].move.name);
-    $moveOption4.value = data.editing.movesList[m].move.name;
-    $moveOption4.textContent = titleCase(data.editing.movesList[m].move.name);
-    $move1.appendChild($moveOption1);
-    $move2.appendChild($moveOption2);
-    $move3.appendChild($moveOption3);
-    $move4.appendChild($moveOption4);
+    var moveName = data.editing.movesList[m].move.name;
+    for (var i = 0; i < 4; i++) {
+      var $moveOption = document.createElement('option');
+      $moveOption.value = moveName;
+      $moveOption.className = moveCheck(moveName) ? 'moveslist hidden' : 'moveslist';
+      $moveOption.textContent = titleCase(moveName);
+      switch (i) {
+        case 0: $move1.appendChild($moveOption); break;
+        case 1: $move2.appendChild($moveOption); break;
+        case 2: $move3.appendChild($moveOption); break;
+        case 3: $move4.appendChild($moveOption); break;
+        default: $move1.appendChild($moveOption);
+      }
+    }
+  }
+}
+
+movesData().forEach(move => {
+  move.el.addEventListener('change', event => {
+    move.setMoveName(event.target.value);
+    updateMoveList(move.arg);
+  });
+});
+
+function updateMoveList(moveSlot) {
+  var $showMove = document.querySelectorAll('.moveslist');
+  for (var z = 0; z < $showMove.length; z++) {
+    if (moveCheck($showMove.item(z).value)) {
+      $showMove.item(z).className = ('moveslist hidden');
+    } else {
+      $showMove.item(z).classList.remove('hidden');
+    }
+  }
+  for (let i = 1; i < 5; i++) {
+    if (moveSlot !== i) {
+      var $removeMove = document.querySelector('#move' + i.toString() + ' > [value="' + event.target.value + '"]');
+      $removeMove.classList.add('hidden');
+    }
   }
 }
 

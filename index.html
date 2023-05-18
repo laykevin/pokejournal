@@ -17,7 +17,7 @@
   <header>
     <div class="container">
       <div class="row head">
-        <div class="white-text">PokeNav</div>
+        <div class="white-text">PokeJournal</div>
         <a id="pc" href="">Bill's PC</a>
         <a id="party" href="">My Party</a>
       </div>
@@ -151,11 +151,13 @@
                 </select>
               </div>
               <label for="moves">Moves</label>
-              <div id="move-selects" class="flex">
-                <select name="move1" id="move1"></select><select name="move2" id="move2"></select>
-              </div>
-              <div class="flex">
-                <select name="move3" id="move3"></select><select name="move4" id="move4"></select>
+              <div class="update-moves">
+                <div id="move-selects" class="flex">
+                  <select name="move1" id="move1"></select><select name="move2" id="move2"></select>
+                </div>
+                <div class="flex">
+                  <select name="move3" id="move3"></select><select name="move4" id="move4"></select>
+                </div>
               </div>
               <input class="save-button" type="submit" value="SAVE">
               <div id="toast-box">
@@ -181,7 +183,8 @@
         </div>
       </div>
     </div>
-
+    <div id="glass-modal" class="hidden">
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
