@@ -15,7 +15,7 @@ As a Pokemon fan, I wanted a place to log the Pokemon that I personally caught a
 
 ## Live Demo
 
-Try the application live at [https://laykevin.github.io/ajax-project/](https://laykevin.github.io/ajax-project/)
+Try the application live at [https://laykevin.github.io/pokejournal/](https://laykevin.github.io/pokejournal/)
 
 ## Features
 
